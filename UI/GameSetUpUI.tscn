@@ -31,6 +31,9 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+PLAYER_1_ITEM_LIST_PATH = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Player1List")
+PLAYER_2_ITEM_LIST_PATH = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/Player2List")
+TIME_L_PATH = NodePath("MarginContainer/VBoxContainer/VBoxContainer3/TimeL")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 512.0
@@ -69,7 +72,7 @@ margin_bottom = 31.0
 custom_fonts/font = SubResource( 2 )
 text = "Player 1"
 
-[node name="ItemList" type="ItemList" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Player1List" type="ItemList" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 margin_top = 35.0
 margin_right = 256.0
 margin_bottom = 67.0
@@ -88,7 +91,7 @@ margin_bottom = 31.0
 custom_fonts/font = SubResource( 2 )
 text = "Player 2"
 
-[node name="ItemList" type="ItemList" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="Player2List" type="ItemList" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
 margin_top = 35.0
 margin_right = 256.0
 margin_bottom = 67.0
@@ -108,7 +111,7 @@ margin_bottom = 20.0
 custom_fonts/font = SubResource( 4 )
 text = "Clock Setup"
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/VBoxContainer3"]
+[node name="UseClockCheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/VBoxContainer3"]
 margin_top = 36.0
 margin_right = 256.0
 margin_bottom = 64.0
@@ -125,12 +128,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer3"]
+[node name="TimeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer3"]
 margin_top = 116.0
 margin_right = 256.0
 margin_bottom = 132.0
+min_value = 1.0
 max_value = 60.0
-step = 0.5
+value = 1.0
+rounded = true
 
 [node name="StartGame" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 393.0
@@ -138,3 +143,9 @@ margin_right = 256.0
 margin_bottom = 419.0
 custom_fonts/font = SubResource( 6 )
 text = "Start"
+
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/VBoxContainer/Player1List" to="." method="_on_Player1List_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/VBoxContainer2/Player2List" to="." method="_on_Player2List_item_selected"]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/VBoxContainer3/UseClockCheckBox" to="." method="_on_UseClockCheckBox_button_down"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer3/TimeSlider" to="." method="_on_TimeSlider_value_changed"]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/StartGame" to="." method="_on_StartGame_button_down"]
