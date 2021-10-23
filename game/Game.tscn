@@ -9,3 +9,15 @@ script = ExtResource( 2 )
 [node name="Pieces" type="Node" parent="."]
 
 [node name="GamePlayUI" parent="." instance=ExtResource( 1 )]
+PLAYER_TIME_L_PATHS = {
+"p_1": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Player1TimeL"),
+"p_2": NodePath("MarginContainer/VBoxContainer/VBoxContainer2/Player2TimeL")
+}
+
+[node name="Player1Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Player2Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timers_were_set" from="." to="GamePlayUI" method="_on_Game_timers_were_set"]
