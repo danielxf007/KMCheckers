@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://animations/piece_anim.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://scripts/piece.gd" type="Script" id=2]
+
+[node name="Piece" type="AnimatedSprite"]
+frames = ExtResource( 1 )
+animation = "KnightAnim"
+script = ExtResource( 2 )
