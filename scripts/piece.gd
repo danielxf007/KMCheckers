@@ -21,7 +21,6 @@ func init(_init_piece_state: int, pos: Vector2) -> void:
 	self.animation = self.ANIMATIONS[_init_piece_state]
 	self.curr_color_state = NORMAL_COLOR
 	self.global_position = pos
-	self.hide()
 
 func activate() -> void:
 	self.playing = true
