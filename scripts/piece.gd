@@ -18,19 +18,21 @@ func init(id: int, pos: Vector2) -> void:
 	self.piece_state = id
 	self.selected = false
 	self.global_position = pos
+	self.hide()
 
 func activate() -> void:
 	self.playing = true
 	self.show()
 
 func desactivate() -> void:
-	self.playing = false
+	self.stop()
 	self.selected = false
 	self.hide()
 
 func set_type(type: int) -> void:
 	self.piece_state &= self.ID_MASK
 	self.piece_state |= (type<<self.ID_BITS)
+	self.play(self.ANIMATIONS[type])
 
 func reset() -> void:
 	self.modulate = self.COLORS[NORMAL_COLOR]
