@@ -35,6 +35,7 @@ func _on_TimeSlider_value_changed(value: float) -> void:
 
 func _on_StartGame_button_down() -> void:
 	self.emit_signal("game_started", self.game_setup_data)
+	self.hide()
 
 
 
