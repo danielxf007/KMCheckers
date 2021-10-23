@@ -1,24 +1,25 @@
 extends AnimatedSprite
 
 class_name Piece
+enum {KNIGHT, MONSTER, KING_KNIGHT, KING_MONSTER} #Piece states
+enum {NORMAL_COLOR, KING_COLOR, SELECTED_COLOR}  #Color states
+const KING_MASK: int = 0x10
 const FRAMES_PATH: String = "res://animations/piece_anim.tres"
-const NORMAL: String = "normal"
-const KING: String = "king"
-const SELECTED: String = "selected"
-const COLORS: Dictionary = {"normal": "ffffff", "king": "dfc0ff00",
-"selected": "3dffffff"}
-const ANIMATIONS: Dictionary = {"knight": "KnightAnim", "monster": "MonsterAnim"}
+const COLORS: Array = ["ffffff", "dfc0ff00", "3dffffff"]
+const ANIMATIONS: Array = ["KnightAnim", "MonsterAnim"]
 
-var type: String
-var lvl: String
+var init_piece_state: int
+var curr_piece_state: int
+var curr_color_state: int
 var selected: bool
 
-func init(_type: String, pos: Vector2) -> void:
+func init(_init_piece_state: int, pos: Vector2) -> void:
 	self.frames = load(self.FRAMES_PATH)
-	self.type = _type
-	self.lvl = self.NORMAL
+	self.init_piece_state = _init_piece_state
+	self.curr_piece_state = _init_piece_state
 	self.selected = false
-	self.animation = self.ANIMATIONS[_type]
+	self.animation = self.ANIMATIONS[_init_piece_state]
+	self.curr_color_state = NORMAL_COLOR
 	self.global_position = pos
 	self.hide()
 
@@ -32,18 +33,19 @@ func desactivate() -> void:
 	self.hide()
 
 func reset() -> void:
-	self.lvl = self.NORMAL
+	self.curr_piece_state = self.init_piece_state
+	self.curr_color_state = NORMAL_COLOR
+	self.modulate = self.COLORS[NORMAL_COLOR]
 	self.selected = false
-	self.modulate = self.COLORS[self.NORMAL]
 
 func move(pos: Vector2) -> void:
 	self.global_position = pos
 
 func is_king() -> bool:
-	return self.type == self.KING
+	return bool(self.curr_piece_state & self.KING_MASK)
 
 func promote() -> void:
-	self.lvl = self.KING
+	self.curr_piece_state |= self.KING_MASK
 	self.modulate = self.COLORS[self.KING]
 
 func is_selected() -> bool:
@@ -51,7 +53,4 @@ func is_selected() -> bool:
 
 func select() -> void:
 	self.selected = !self.selected
-	if self.selected:
-		self.modulate = self.COLORS[self.SELECTED]
-	else:
-		self.modulate = self.COLORS[self.lvl]
+	self.modulate = self.COLORS[SELECTED_COLOR if self.selected else NORMAL_COLOR]
