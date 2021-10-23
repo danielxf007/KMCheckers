@@ -2,7 +2,7 @@ extends AnimatedSprite
 
 class_name Piece
 enum {KNIGHT, MONSTER, KING_KNIGHT, KING_MONSTER} #Piece types
-enum {NORMAL_COLOR, KING_COLOR, SELECTED_COLOR}  #Color states
+enum {NORMAL_COLOR, KING_COLOR, SELECTED_COLOR}  #Color types
 const ID_BITS: int = 5
 const ID_MASK: int = 0x1F
 const KING_MASK: int = 0x40
